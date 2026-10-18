@@ -7,6 +7,7 @@ import { habitStatus } from "@/lib/insights";
 import type { Habit } from "@/lib/types";
 import { cn, localISO, todayISO } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
+import { ConfirmButton } from "@/components/ui/confirm-button";
 import { Button, Empty, Field, Input, SectionTitle, Segmented } from "@/components/ui/form";
 
 const IDEAS: { name: string; automated: boolean; automation?: string; minimal?: string }[] = [
@@ -114,10 +115,10 @@ function HabitRow({ h }: { h: Habit }) {
           )}
         </div>
         <span className="flex items-center gap-1 text-xs text-slate-300"><Flame size={14} className={s.streak ? "text-gold" : "text-slate-600"} />{s.streak}</span>
-        <button aria-label="Borrar hábito" className="text-slate-600 hover:text-rose-300"
-          onClick={() => window.confirm(`¿Borrar «${h.name}»?`) && update((st) => ({ ...st, habits: st.habits.filter((x) => x.id !== h.id) }))}>
+        <ConfirmButton ariaLabel="Borrar hábito" className="text-slate-600 hover:text-rose-300"
+          onConfirm={() => update((st) => ({ ...st, habits: st.habits.filter((x) => x.id !== h.id) }))}>
           <Trash2 size={14} />
-        </button>
+        </ConfirmButton>
       </div>
       {s.neverTwiceAlert && (
         <div className="mt-3 flex gap-2 rounded-lg bg-gold/10 p-2.5 text-xs text-gold-soft ring-1 ring-gold/20">

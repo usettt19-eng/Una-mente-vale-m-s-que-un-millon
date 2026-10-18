@@ -2,6 +2,7 @@
 
 import { useAppState } from "@/lib/storage";
 import { useMounted } from "@/lib/use-mounted";
+import { ConfirmButton } from "@/components/ui/confirm-button";
 import { todayISO } from "@/lib/utils";
 import { MindIndexHero } from "./MindIndexHero";
 import { BandwidthCard } from "./BandwidthCard";
@@ -52,7 +53,8 @@ export function Dashboard() {
         </div>
       ) : (
         <div className="flex justify-end">
-          <button onClick={() => window.confirm("Se borrarán tus datos de este dispositivo. ¿Continuar?") && reset()} className="text-[11px] text-slate-500 hover:text-slate-300">Restablecer datos de ejemplo</button>
+          <ConfirmButton onConfirm={reset} question="Se borrarán tus datos de este dispositivo." confirmLabel="Restablecer"
+            className="text-[11px] text-slate-500 hover:text-slate-300">Restablecer datos de ejemplo</ConfirmButton>
         </div>
       )}
 
