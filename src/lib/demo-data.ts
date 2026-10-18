@@ -1,9 +1,10 @@
 import type { AppState } from "./types";
+import { localISO } from "./utils";
 
 const d = (offset: number) => {
   const x = new Date();
   x.setDate(x.getDate() - offset);
-  return x.toISOString().slice(0, 10);
+  return localISO(x);
 };
 const hoursAgo = (h: number) => new Date(Date.now() - h * 3_600_000).toISOString();
 
@@ -28,6 +29,7 @@ export const EMPTY_STATE: AppState = {
     reviewEveryDays: 90,
   },
   family: [],
+  legacyPatterns: [],
 };
 
 /** Datos de ejemplo para enseñar el Dashboard antes de que el usuario cargue los suyos. */
@@ -80,9 +82,9 @@ export const DEMO_STATE: AppState = {
   ],
   opportunities: [
     { id: "o1", date: d(3), complaint: "Nadie en mi barrio arregla bicis eléctricas.",
-      need: "Servicio de reparación móvil de e-bikes", potential: 3 },
+      need: "Servicio de reparación móvil de e-bikes", pain: 4, reach: 3 },
     { id: "o2", date: d(8), complaint: "Pierdo horas cuadrando facturas de autónomo.",
-      need: "Plantilla/automatización contable sencilla para freelancers", potential: 2 },
+      need: "Plantilla/automatización contable sencilla para freelancers", pain: 3, reach: 4 },
   ],
   microSteps: [
     { id: "m1", goal: "Lanzar un ingreso extra", step: "Enviar 1 mensaje a un posible cliente",
@@ -92,10 +94,13 @@ export const DEMO_STATE: AppState = {
   ],
   habits: [
     { id: "h1", name: "Transferencia automática al ahorro", automated: true,
+      automation: "150 € el día 1 de cada mes",
       log: [d(0), d(1), d(2), d(3), d(4), d(5), d(6)] },
     { id: "h2", name: "Registrar gastos del día", automated: false,
+      minimal: "Anotar solo el gasto más grande del día",
       log: [d(2), d(3), d(4), d(6)] },
     { id: "h3", name: "10 min de educación financiera", automated: false,
+      minimal: "Leer 1 página",
       log: [d(0), d(1), d(3), d(4), d(5)] },
   ],
   resilience: {
@@ -112,5 +117,10 @@ export const DEMO_STATE: AppState = {
   },
   family: [
     { id: "f1", date: d(15), topic: "Cómo hablábamos del dinero en casa", with: "Pareja" },
+  ],
+  legacyPatterns: [
+    { id: "l1", inherited: "En casa el dinero era tema tabú y causaba discusiones.",
+      keep: "La austeridad y el respeto por el esfuerzo.",
+      change: "Hablar de dinero con calma una vez al mes, con números a la vista." },
   ],
 };

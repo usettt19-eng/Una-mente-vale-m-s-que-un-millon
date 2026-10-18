@@ -18,6 +18,7 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
       },
+      gridTemplateColumns: { 14: "repeat(14, minmax(0, 1fr))" },
       borderRadius: { xl: "1rem", "2xl": "1.25rem" },
     },
   },

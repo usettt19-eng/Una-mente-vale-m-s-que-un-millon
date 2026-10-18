@@ -1,5 +1,5 @@
 import type { AppState, BandwidthCheck, Habit, MoneyScript } from "./types";
-import { clamp, daysBetween, todayISO } from "./utils";
+import { clamp, daysBetween, localISO, todayISO } from "./utils";
 
 export const SCRIPT_LABELS: Record<MoneyScript, string> = {
   evasion: "Evasión",
@@ -43,7 +43,7 @@ export function last7Days() {
   return Array.from({ length: 7 }, (_, i) => {
     const x = new Date();
     x.setDate(x.getDate() - (6 - i));
-    return x.toISOString().slice(0, 10);
+    return localISO(x);
   });
 }
 
@@ -63,12 +63,13 @@ export function habitStatus(h: Habit) {
   let streak = 0;
   const cursor = new Date();
   if (!doneToday) cursor.setDate(cursor.getDate() - 1);
-  while (h.log.includes(cursor.toISOString().slice(0, 10))) {
+  while (h.log.includes(localISO(cursor))) {
     streak++;
     cursor.setDate(cursor.getDate() - 1);
   }
   // Regla «Nunca fallar dos veces»: ayer fallaste y hoy aún no lo has hecho.
-  const neverTwiceAlert = missedYesterday && !doneToday;
+  // (Solo si el hábito ya tiene historial: uno recién creado no ha «fallado».)
+  const neverTwiceAlert = h.log.length > 0 && missedYesterday && !doneToday;
   return { doneToday, streak, neverTwiceAlert };
 }
 

@@ -1,16 +1,10 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { getModule } from "@/lib/modules";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { ClientOnly } from "@/components/ui/client-only";
 
-/**
- * Plantilla común de cada módulo. Cada carpeta de src/app/<modulo>
- * sustituirá `children` por su herramienta interactiva.
- */
-export function ModulePage({ slug, features, children }: {
-  slug: string; features: string[]; children?: React.ReactNode;
-}) {
+/** Cabecera común de cada módulo + la herramienta interactiva (solo cliente). */
+export function ModulePage({ slug, children }: { slug: string; children: React.ReactNode }) {
   const m = getModule(slug);
   if (!m) return null;
   return (
@@ -28,19 +22,7 @@ export function ModulePage({ slug, features, children }: {
           <p className="mt-1 text-sm text-slate-400">{m.description}</p>
         </div>
       </header>
-      {children ?? (
-        <Card>
-          <div className="mb-3 flex items-center gap-2">
-            <h2 className="text-sm font-semibold text-slate-200">Herramientas de este módulo</h2>
-            <Badge tone="warn">Próximamente</Badge>
-          </div>
-          <ul className="space-y-2 text-sm text-slate-400">
-            {features.map((f) => (
-              <li key={f} className="flex gap-2"><span className="text-emerald">•</span>{f}</li>
-            ))}
-          </ul>
-        </Card>
-      )}
+      <ClientOnly>{children}</ClientOnly>
     </div>
   );
 }

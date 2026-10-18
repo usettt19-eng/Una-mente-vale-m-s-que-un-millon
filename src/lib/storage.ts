@@ -14,12 +14,21 @@ const listeners = new Set<Listener>();
 
 let cache: { state: AppState; isDemo: boolean } | null = null;
 
+/** Rellena campos que falten en datos guardados por versiones anteriores. */
+function normalize(raw: Partial<AppState>): AppState {
+  const s = { ...EMPTY_STATE, ...raw };
+  s.resilience = { ...EMPTY_STATE.resilience, ...raw.resilience };
+  s.identity = { ...EMPTY_STATE.identity, ...raw.identity };
+  s.opportunities = s.opportunities.map((o) => ({ ...o, pain: o.pain ?? 3, reach: o.reach ?? 3 }));
+  return s;
+}
+
 function read(): { state: AppState; isDemo: boolean } {
   if (cache) return cache;
   try {
     const raw = window.localStorage.getItem(KEY);
     if (raw) {
-      cache = { state: { ...EMPTY_STATE, ...JSON.parse(raw) }, isDemo: false };
+      cache = { state: normalize(JSON.parse(raw)), isDemo: false };
       return cache;
     }
   } catch {

@@ -1,11 +1,10 @@
 import { ModulePage } from "@/components/modules/ModulePage";
-
-const FEATURES = [
-  "Registro de errores y pérdidas como experimentos",
-  "Reencuadre «aún no he desarrollado esta habilidad»",
-  "Coste de aprendizaje acumulado"
-];
+import { GrowthTool } from "@/components/modules/tools/GrowthTool";
 
 export default function Page() {
-  return <ModulePage slug="crecimiento" features={FEATURES} />;
+  return (
+    <ModulePage slug="crecimiento">
+      <GrowthTool />
+    </ModulePage>
+  );
 }

@@ -5,6 +5,8 @@ export type MoneyScript = "evasion" | "adoracion" | "estado" | "vigilancia";
 export interface ScriptProfile {
   completedAt: string;
   scores: Record<MoneyScript, number>; // 0–100
+  answers?: Record<string, number>;      // id de pregunta → 1–5
+  familyOrigin?: string;                 // frases que escuchabas en casa
 }
 
 export interface BandwidthCheck {
@@ -29,6 +31,7 @@ export interface GrowthExperiment {
   event: string;
   lesson: string;
   costLearned?: number;
+  nextExperiment?: string;
 }
 
 export interface IdentityVote {
@@ -54,7 +57,11 @@ export interface Decision {
   certainty: number; // 0–100
   opportunityCost?: number;
   indecisionCostPerWeek?: number;
+  futureSelf?: string;
+  deadline?: string;
   status: "abierta" | "decidida";
+  choice?: string;
+  decidedAt?: string;
 }
 
 export interface Opportunity {
@@ -62,7 +69,8 @@ export interface Opportunity {
   date: string;
   complaint: string;
   need: string;
-  potential: 1 | 2 | 3;
+  pain: number;  // 1–5: cuánto duele el problema
+  reach: number; // 1–5: cuántas personas lo sufren
 }
 
 export interface MicroStep {
@@ -71,6 +79,7 @@ export interface MicroStep {
   step: string;
   createdAt: string; // ISO completo, para la cuenta atrás de 48 h
   done: boolean;
+  doneAt?: string;
 }
 
 export interface Habit {
@@ -78,6 +87,8 @@ export interface Habit {
   name: string;
   automated: boolean;
   log: string[]; // fechas YYYY-MM-DD cumplidas
+  minimal?: string;    // versión mínima (2 min) para no fallar dos veces
+  automation?: string; // ej. "Transferencia el día 1 de cada mes"
 }
 
 export interface Resilience {
@@ -94,6 +105,14 @@ export interface FamilyConversation {
   date: string;
   topic: string;
   with: string;
+  notes?: string;
+}
+
+export interface LegacyPattern {
+  id: string;
+  inherited: string; // lo que heredé
+  keep: string;      // lo que conservo
+  change: string;    // lo que cambio
 }
 
 export interface AppState {
@@ -109,4 +128,5 @@ export interface AppState {
   habits: Habit[];
   resilience: Resilience;
   family: FamilyConversation[];
+  legacyPatterns: LegacyPattern[];
 }

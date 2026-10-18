@@ -9,7 +9,7 @@ import { Card, CardHeader } from "@/components/ui/card";
 export function InsightsFeed({ state }: { state: AppState }) {
   const belief = state.beliefs[0];
   const growth = state.growth[0];
-  const opp = [...state.opportunities].sort((a, b) => b.potential - a.potential)[0];
+  const opp = [...state.opportunities].sort((a, b) => b.pain * b.reach - a.pain * a.reach)[0];
   const fam = state.family[0];
 
   const items = [

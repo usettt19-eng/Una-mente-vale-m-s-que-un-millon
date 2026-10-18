@@ -1,11 +1,10 @@
 import { ModulePage } from "@/components/modules/ModulePage";
-
-const FEATURES = [
-  "Fondo de emergencia/tranquilidad en meses cubiertos",
-  "Diversificación de fuentes de ingreso",
-  "Calendario de revisiones periódicas"
-];
+import { ResilienceTool } from "@/components/modules/tools/ResilienceTool";
 
 export default function Page() {
-  return <ModulePage slug="resiliencia" features={FEATURES} />;
+  return (
+    <ModulePage slug="resiliencia">
+      <ResilienceTool />
+    </ModulePage>
+  );
 }

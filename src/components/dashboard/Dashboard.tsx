@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useAppState } from "@/lib/storage";
+import { useMounted } from "@/lib/use-mounted";
 import { todayISO } from "@/lib/utils";
 import { MindIndexHero } from "./MindIndexHero";
 import { BandwidthCard } from "./BandwidthCard";
@@ -21,8 +21,7 @@ import { ModuleGrid } from "./ModuleGrid";
 export function Dashboard() {
   const { state, isDemo, update, reset, startFresh } = useAppState();
   // Los datos dependen de la fecha/hora local y de localStorage: se pintan solo en el cliente.
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const mounted = useMounted();
 
   const addVote = (action: string) =>
     update((s) => ({ ...s, identity: { ...s.identity, votes: [...s.identity.votes, makeVote(action)] } }));

@@ -1,11 +1,10 @@
 import { ModulePage } from "@/components/modules/ModulePage";
-
-const FEATURES = [
-  "Test rápido de capacidad mental (sueño, estrés, preocupación, bucles abiertos)",
-  "Detección de visión de túnel y fatiga por escasez",
-  "Recomendación automática de pausa o simplificación"
-];
+import { BandwidthTool } from "@/components/modules/tools/BandwidthTool";
 
 export default function Page() {
-  return <ModulePage slug="ancho-de-banda" features={FEATURES} />;
+  return (
+    <ModulePage slug="ancho-de-banda">
+      <BandwidthTool />
+    </ModulePage>
+  );
 }

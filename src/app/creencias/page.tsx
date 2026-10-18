@@ -1,11 +1,10 @@
 import { ModulePage } from "@/components/modules/ModulePage";
-
-const FEATURES = [
-  "Diario de pensamientos automáticos sobre el dinero",
-  "Detector de lenguaje absolutista («nunca», «siempre»)",
-  "Asistente para crear Creencias Puente realistas"
-];
+import { BeliefsTool } from "@/components/modules/tools/BeliefsTool";
 
 export default function Page() {
-  return <ModulePage slug="creencias" features={FEATURES} />;
+  return (
+    <ModulePage slug="creencias">
+      <BeliefsTool />
+    </ModulePage>
+  );
 }
